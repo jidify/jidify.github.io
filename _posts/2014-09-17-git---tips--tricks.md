@@ -23,5 +23,12 @@ tags: []
     ex:
     git branch my_new_branch 9c2d37d
     
-Voir fiche [2816715](http://stackoverflow.com/questions/2816715/branch-from-a-previous-commit-using-git) sur stackoverflow.
+_Voir fiche [2816715](http://stackoverflow.com/questions/2816715/branch-from-a-previous-commit-using-git) sur stackoverflow._
 
+
+###Merger
+
+Aprés que git est signaler qu'il fallait effectuer un merge manuel
+
+    git mergetool
+    
