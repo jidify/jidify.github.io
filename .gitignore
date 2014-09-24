@@ -1,0 +1,21 @@
+_site/*
+_theme_packages/*
+
+### Theme from Jekyll Boostrap not choosed
+_includes/themes/dinky/
+_includes/themes/mark-reid/
+_includes/themes/the-minimum/
+_includes/themes/the-program/
+assets/themes/dinky/
+assets/themes/mark-reid/
+assets/themes/the-minimum/
+assets/themes/the-program/
+
+
+Thumbs.db
+.DS_Store
+
+!.gitkeep
+
+.rbenv-version
+.rvmrc

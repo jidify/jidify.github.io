@@ -1,0 +1,16 @@
+[color]
+	ui = true
+[mergetool]
+	keepBackup = false
+[user]
+	name = Jerome Dantan
+	email = jerome.dantan.pro@gmail.com
+[alias]
+	co = checkout
+	cob = checkout -b
+	cobt = checkout -b temp
+	dbt = branch -d temp
+	cm = commit -a -m
+	cmq = commit -a -m 'SAVEPOINT'
+	la = log --pretty=oneline
+	psa = push --all
