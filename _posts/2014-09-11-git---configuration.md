@@ -100,9 +100,21 @@ où **"something"** est la sous-section de **[fake]**
 {: .rubric-3}  
 
 
+
+
+**kdiff3 comme outil de merge**
+
+    git config --global merge.tool kdiff3
+    
+et si kdiff3 n'est pas dans le PATH, ajouter :
+
+    $ git config --global mergetool.kdiff3.path /Applications/kdiff3.app/Contents/MacOS/kdiff3
+
+_Voir stackoverflow **[9776434](http://stackoverflow.com/questions/9776434/git-mergetool-config-on-mac-osx)**_
+{: .rubric-3}
+
 >Certaines de ces customisations peuvent être faites via le fichier **.gitattributes**
 {: .information}
-
 
 #Mes fichiers de configuration 
 

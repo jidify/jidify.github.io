@@ -14,3 +14,7 @@
 	cmq = commit -a -m 'SAVEPOINT'
 	la = log --pretty=oneline
 	psa = push --all
+[merge]
+	tool = kdiff3
+[mergetool "kdiff3"]
+	path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
