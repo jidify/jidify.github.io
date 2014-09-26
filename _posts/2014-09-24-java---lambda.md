@@ -8,7 +8,7 @@ tags: [java 8, lambda]
 {% include JB/setup %}
 
 #Pourquoi les lambdas en Java
-  1. Plus concis
+  1. Ecriture plus concise, donc plus efficace
   2. Orienté programmation fonctionnelle
   3. Nécessaire aux "streams"
 
@@ -16,7 +16,7 @@ tags: [java 8, lambda]
 
 Une lambda **ressemble à une fonction** mais est en fait **une instance d'une inner class** qui implémente une **interface contenant une seule méthode abstraite**. 
 
->Une interface n'ayant qu'une seule methode s'appelle une **"interfaces fonctionnelle"** ou une **"Single Abstract Method Interface"**.
+>Une interface n'ayant qu'une seule methode **abstraite** s'appelle une **"interfaces fonctionnelle"** ou une **"Single Abstract Method Interface"**.
 {: .information}
 
 soit, l'utilisation d'une classe annonyme (java 7): 
@@ -90,14 +90,16 @@ Une lambda peut acceder aux variables locales qui sont :
      doSomething(someArg -> use(s));
 
 >ATTENTION: dans ce cas, "s" ne doit **jamais être modifiée**.
-{: .error}
+{: .attention}
+
 
 >Le pourquoi du "final" dans les inner classes sur [stackoverflow](http://stackoverflow.com/questions/3910324/why-inner-classes-require-final-outer-instance-variables-java).  
 En gros, Java ne passe pas la reférence à la variable mais une copie. Si on change la valeur de la variable, l'originale et la copie n'ont plus les mêmes valeurs.
+{: .information}
 
 #@FunctionalInterface
 **@FunctionalInterface** est un **marqueur** qui indique qu'on utilise cette interface avec des lambdas.  
-On s'assure ainsi que les autres developpeurs ne **modifirons pas cette interface** (en ajoutant une autre méthode par exemple) d'une maniere succeptible de **"casser"** l'utilisation de cette interface avec les lambdas.
+On s'assure ainsi que les autres developpeurs ne **modifirons pas cette interface** (en ajoutant une autre méthode **abstraite** par exemple) d'une maniere succeptible de **"casser"** l'utilisation de cette interface avec les lambdas.
 
 #Lambdas avec des classes et des instances
  Il est possible d'invoquer une méthode avec les lambdas en utilisant le séparateur "**::**"
@@ -126,29 +128,83 @@ On peut dire que ces interfaces représentent **5 grandes "familles"** d'opérat
   - Function & BiFunction
   - Consumer
   - Supplier
-  - BinaryOpérator
+  - BinaryOperator
 
 voir l'ensemble de ces interfaces à tout faire dans l'**[API](http://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html)** Java 8.  
 
 
->L'idée de ces interfaces est de données à Java 8 l'allure de la programmation fonctionnelle (avec un type "Function" qu'on peut passer en argument à d'autre fonction ([first-class function](http://en.wikipedia.org/wiki/First-class_function))), alors qu'en réalité on travail avec des interfaces typées ayant une unique méthode.
-{: .warnning}  
+>**L'idée de ces interfaces est de données à Java 8 l'allure de la programmation fonctionnelle** (avec un type "Function" qu'on peut passer en argument à d'autre fonction ([first-class function](http://en.wikipedia.org/wiki/First-class_function))), alors qu'**en réalité on travail avec des interfaces typées ayant une unique méthode**.
+{: .warning}  
 
 ##Predicate
 L'ojectif des Predicates est de tester quelquechose.  
-La méthode **test(...)** définie dans l'interface ressemblera à :
+La méthode abstraite **test(...)** définie dans l'interface ressemblera à :
 
     boolean test(T t);
     
+L'interface Predicate contient également **3 methodes concrêtes**: 
+    
+   - and
+   - or
+   - negate
+
+ et **1 méthode static**:
+ 
+   - isEqual
+ 
  
 ##Function & BiFunction
 
 ###Function
 Une fonction prend **un type en argument** et renvoie en **valeur de retour  un autre type**.  
-La méthode **apply(...)** définie dans l'interface ressemblera à :
+La méthode abstraite **apply(...)** définie dans l'interface ressemblera à :
  
     R apply(T t);
+    
+L'interface Function contient également **2 methodes concrêtes**: 
+    
+   - compose
+   - andThen
+
+ et **1 méthode static**:
+ 
+   - identity
     
 
 ###BiFunction
 Rien compris !!!
+
+
+##Consumer
+Un consumer va effectuer des changements, va intervenir sur l'élément qui lui est fourni.  
+La méthode abstraite **accept(...)** définie dans l'interface ressemblera à :
+
+    void accept(T t);
+    
+    
+L'interface Consumer contient également **1 methodes concrêtes**: 
+    
+   - chain
+    
+    
+##Supplier
+Un consumer va produire, créer un nouvelle instance.  
+La méthode abstraite **get()** définie dans l'interface ressemblera à :
+
+    T get();   
+    
+    
+##BinaryOperator
+Un BinaryOperator va produire une instance de type T à partir de 2 arguments (instances) de type T.
+La méthode abstraite **apply(...)** définie dans l'interface ressemblera à :
+
+    T apply(T t1, T t2);
+    
+    
+>C'est une spécialisation des BiFunction. Ici, ils n'y à qu'**un seul type**.
+{: .information}
+    
+    
+>C'est une interface particulièrement utilisées dans les opérations de type "**reduce**".
+{: .information}
+    
