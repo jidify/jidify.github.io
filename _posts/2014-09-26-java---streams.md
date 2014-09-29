@@ -10,7 +10,7 @@ tags: [java 8, stream]
 #Stream : à quoi ça sert
 Les streams sont des wrappers autour de data source (comme les tableaux, les listes, ...).  
 Ils implementent des opérations nouvelles (utilisant les lambdas).  
-Ces nouvelles opérations peuvent s'exécuter sequentiellement ou en parallelle. 
+Ces nouvelles opérations peuvent s'exécuter **sequentiellement ou en parallelle**. 
 
 >Les streams **ne sont pas** des structures de données!  
 Les streams **créer un pipeline d'opérations** autour d'une structure de données. 
@@ -22,7 +22,9 @@ Les streams **créer un pipeline d'opérations** autour d'une structure de donn�
 3 manières classiques :
 
   - `someList.stream()`
+  
   - `Stream.of(arrayOfObjects)`
+  
   - `Stream.of(val1, val2, …)`
 
 >En employant les **primitives* (int) au lieu des **objets wrappers** (Integer), il est possible de commettre des erreurs! 
@@ -65,17 +67,59 @@ ou, plus généralement, en utilisant l'import static :
     
 #Différentes nature des méthodes d'un stream
 
-##Méthodes intermédiaires
-
-TODO
-
 ##Méthodes finales 
 
-TODO
+Aprés l'invocation d'une méthode terminale, le stream est considéré comme **consommé** et aucune autre opération **ne peut plus être effectuée sur ce stream**.
+
+On trouve ici: 
+
+  - forEach
+  - forEachOrdered
+  - toArray
+  - reduce
+  - collect
+  - min
+  - max
+  - count
+  - anyMatch
+  - allMatch
+  - noneMatch
+  - findFirst
+  - findAny
+  - iterator
+
+
+##Méthodes intermédiaires
+
+Ce sont des méthodes qui **prennent un stream en entrée** et produise **un autre stream en sortie**.  
+Elles ne sont **pas exécutées** tant qu'une **méthode finale n'a pas été invoquée**.
+
+On trouve ici: 
+
+  - map (mapToInt, flatMap, ...)
+  - filter
+  - distinct
+  - sorted
+  - peek
+  - limit
+  - skip
+  - parallel
+  - sequential
+  - unordered
 
 ##Méthodes "court-circuit"    
 
-TODO
+Ces méthodes **intérromppent tous les traitements** effectués sur un stream dés que **leur traitement à elles est effectué.  
+  
+On trouve ici :
+  
+  - anyMatch 
+  - allMatch
+  - noneMatch
+  - findFirst
+  - findAny
+  - limit
+  - skip
 
     
 #Méthodes usuelles des streams
@@ -147,4 +191,53 @@ En voici les méthodes principales:
 
 ##findAny
 
+TODO
+
+##reduce
+
+Permet de **combiner les éléments d'un stream** en leur appliquant une lambda.
+
+##collect
+
+En combinant un stream et une méthode de la classe **[Collectors](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html)**, on peut construire diverses structures de données.
+
+Outre les methodes **asList(), asSet()** qui permettent de construire respectivement une List et un Set à partir d'un stream, on peut également préciser le type de collection voulue:
+
+- ArrayList : `someStream.collect(toCollection(ArrayList::new))`
+
+- TreeSet : `someStream.collect(toCollection(TreeSet::new))`
+
+- Stack : `someStream.collect(toCollection(Stack::new))`
+
+- Vector : `someStream.collect(toCollection(Vector::new))`
+
+<br>
+on trouve aussi des nouveautés comme [StringJoiner](http://docs.oracle.com/javase/8/docs/api/java/util/StringJoiner.html), qui produit une String avec le delimiteur fourni :
+      
+	StringJoiner joiner1 = new StringJoiner(", ");
+	String result1 = joiner1.add("Java").add("Lisp").add("Ruby").toString();    // "Java, Lisp, Ruby"
+	
+syntactic sugar (sans referencer explicitement "StringJoiner"):
+
+    String result2 = String.join(", ", "Java", "Lisp", "Ruby");  // "Java, Lisp, Ruby"
+   
+   
+##Opérations limitant la taille d'un stream
+
+  - limit
+  - substream
+
+
+##Opérations de comparaison des éléments d'un stream
+
+ - sorted
+ - min, max
+ - distinct (supprime les doublon dans un stream)   
+
+ 
+##Opérations de correspondance des éléments d'un stream
+
+  - allMatch : test que tous les élements du stream correspondent à un prédicat.
+  - anyMatch : test qu'au moins 1 élement du stream correspondent à un prédicat.
+  - noneMatch : test qu'aucuns des élements du stream correspondent à un prédicat.
 
