@@ -27,7 +27,7 @@ Les streams **créer un pipeline d'opérations** autour d'une structure de donn�
   
   - `Stream.of(val1, val2, …)`
 
->En employant les **primitives* (int) au lieu des **objets wrappers** (Integer), il est possible de commettre des erreurs! 
+>En employant les **primitives** (int) au lieu des **objets wrappers** (Integer), il est possible de commettre des erreurs! 
 {: .attention}
 
 
