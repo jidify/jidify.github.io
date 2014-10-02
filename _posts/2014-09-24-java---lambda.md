@@ -208,3 +208,7 @@ La méthode abstraite **apply(...)** définie dans l'interface ressemblera à :
 >C'est une interface particulièrement utilisées dans les opérations de type "**reduce**".
 {: .information}
     
+    
+#Ressources
+
+  - [java-8-tutorial](http://coreservlets.com/java-8-tutorial/)

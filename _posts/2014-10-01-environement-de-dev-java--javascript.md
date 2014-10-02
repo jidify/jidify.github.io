@@ -3,7 +3,7 @@ layout: post
 title: "Environement de Dev Java & JavaScript"
 description: ""
 category: 
-tags: []
+tags: [java, javascript, environement developpement]
 ---
 {% include JB/setup %}
 
@@ -44,8 +44,9 @@ Si elles ne sont pas déjà présentent, installer **en globale** les applicatio
 
     npm install grunt-contrib-connect --save-dev
 
->ATTENTION: si on met en place "watch" ent utilisant "connect", if faut mettre "keepalive : false" dans la task "connect"!!  
+>ATTENTION: si on met en place "watch" ent utilisant "connect", il faut mettre "**keepalive : false**" dans la task "connect"!!  
 _[https://github.com/gruntjs/grunt-contrib-watch/issues/111](https://github.com/gruntjs/grunt-contrib-watch/issues/111)_
+{: .attention}
 
 ###proxy
 le proxy permet de résoudre les problèmes de _**Same-origin policy**_.
@@ -71,9 +72,11 @@ Du coup, mise en place d'un filtre **CORS** coté serveur java.
 
     npm install grunt-contrib-watch --save-dev
 
->**livereload ≠ watch !!**   
-_livereload_ permet que le navigateur soit synchronisé automatiquement avec le code.  
-_watch_ observe si il y à des changements sur un ensembles de fichiers/répertoires et lance une (des) tache(s) grunt si c'es le cas.  
+>**livereload ≠ watch !!**  
+<br> 
+_**livereload**_ permet que le navigateur soit synchronisé automatiquement avec le code.  
+_**watch**_ observe si il y a des changements sur un ensembles de fichiers/répertoires et lance une (des) tache(s) grunt si c'es le cas.  
+<br>
 MAIS, maintenant, **livereload est embarqué dans 'grunt-contrib-watch'** !!
 {: .warning}
 

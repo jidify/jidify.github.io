@@ -241,3 +241,7 @@ syntactic sugar (sans referencer explicitement "StringJoiner"):
   - anyMatch : test qu'au moins 1 élement du stream correspondent à un prédicat.
   - noneMatch : test qu'aucuns des élements du stream correspondent à un prédicat.
 
+
+#Ressources
+
+  - [java-8-tutorial](http://coreservlets.com/java-8-tutorial/)
