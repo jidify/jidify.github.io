@@ -10,8 +10,17 @@ tags: []
 
 #Code
 
+| Actions             | Raccourcis clavier    |
+|:-------------------:| :-------------------: |
+| Générer la javadoc  | `/**`+ `Enter`        |
+| ajoute import       | `Alt`+ `Enter`        |
+| organise les import | `Ctrl`+ `Alt`+ `O`    |
+
+
+#Exploration
+
 | Actions            | Raccourcis clavier|
 |:------------------:| :----------------:|
-| Générer la javadoc | `/**`+ `Enter`    |
-| import             | `Alt`+ `Enter`    |
+| Hierachie          | `Ctrl`+ `H`       |
+|              |     |
 
