@@ -173,7 +173,7 @@ En sortie, nous aurons un token JWT contenant :
 
   - l'**identifiant** (ou login) de l'utilisateur
   - les **rôles** de l'utilisateur
-  - une **durée d'expiration** du token (30 min)
+  - une **durée d'expiration** du token (12 heures)
 
 On utilise pour cela la classe _JWTClaimsSet_:
 
@@ -182,19 +182,26 @@ On utilise pour cela la classe _JWTClaimsSet_:
     // set the userID
     claimsSet.setSubject(user.getUsername());
 
-	//set expiration to 30 min
-    claimsSet.setExpirationTime(new Date(new Date().getTime() + 1000 * 60 * 30));
+	//set expiration to (12 heures)
+    claimsSet.setExpirationTime(new Date(new Date().getTime() + 1000 * 60 * 60 * 12));
     
     //set roles
     claimsSet.setCustomClaims(rolesMap);
 
-On remarque que les **_roles_ ne sont pas normalisés** et doivent être renseignés en utilisant un _**customClaim**_.
+On remarque que les **_"rôles"_ ne sont pas normalisés** et doivent être renseignés en utilisant un _**customClaim**_.
 
+>Je n'ai pas mis en place de mécanisme de raffraichissement de token. L'utilisateur devra donc se reconnecter toutes les 12 heures.  
 <br>
+Ce mecanisme, décrit [ici](), implique le développement d'un _[delegation endpoint](https://docs.auth0.com/auth-api#post--delegation)_ coté serveur.  
+La partie cliente pourra s'appuyer sur la librairie [angular-jwt](https://github.com/auth0/angular-jwt)  
+(_voir aussi : [Handling JWTs on Angular is finally easier!](https://auth0.com/blog/2014/10/01/handling-jwts-on-angular-is-finally-easier/)_).  
+{: .warning}
+
+
 Ensuite, on construit notre JWT token :
 
   1. définition de l'alghorithme
-  2. signé
+  2. signature du token
   3. serialisé sous forme de _String_
   
   
@@ -214,6 +221,133 @@ Ensuite, on construit notre JWT token :
 	
 On retrouve notre algorithme de hachage SHA-256 `JWSAlgorithm.HS256`.
 
+
+
+
 ###Récupération des informations client depuis le token JWT
 
+La récupération des informations client depuis le token JWT consiste à :
 
+  1. dé-serialisé le token JWT (sous forme de _String_)
+  2. vérifier la signature du token
+  3. créer une instance de _UsernamePasswordAuthenticationToken_ représentant l'utilisateur d'un point de vue sécurité.
+
+	 SignedJWT signedJWT;
+    
+    // first, we verify the signature to validate that the token as not been tampered
+    try {
+       // "de-serialized" the JWT
+       signedJWT = SignedJWT.parse(jwtToken);
+    
+       // verify the signature of the token
+       JWSVerifier verifier = new MACVerifier(this.sharedKey); // as MACVerifier.verify is synchronized,
+                                                                 // we build a new verifier for each request
+    
+       boolean verifiedSignature = signedJWT.verify(verifier);
+       if (!verifiedSignature) {
+           // if the signature has been tampered, we stop and alert !!
+           throw new TamperTokenException("Signature has been tamper !!");
+       }
+    
+       //verify the expiration date
+       Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+       if(expirationTime.getTime() < System.currentTimeMillis()){
+           throw new JwtException("The token has expired !! ");
+       }
+    
+     } catch (ParseException | JOSEException e) {
+        throw new JwtException("Failed to recover data from token!!", e);
+     }
+    
+     //second, we create the Spring securityContextToken
+     return buildSecurityContextTokenFromJWT(signedJWT);
+     
+     
+Rien de particulier, si ce ,'est que nous construisons un nouveau _verifier_ à chaque reqète pour éviter les problémes de synchronisation de thread  `WSVerifier verifier = new MACVerifier(this.sharedKey);`.  
+<br>
+La méthodes `buildSecurityContextTokenFromJWT(...)` récupére les données dans l'instance de _SignedJWT_ et les injecte dans l'instance de _UsernamePasswordAuthenticationToken_:
+
+    // recover userID
+    userID = signedJWT.getJWTClaimsSet().getSubject();
+
+    // recover roles
+    String roles = (String) signedJWT.getJWTClaimsSet().getCustomClaims().get(ROLES_KEY);
+    authorities = Stream.of(roles.split(ROLE_SEPARATOR_ESCAPED))
+                            .map(role -> new SimpleGrantedAuthority(role))
+                            .collect(Collectors.toList());
+
+    ...
+
+    return new UsernamePasswordAuthenticationToken(userID,
+                                                   "",           // don't need password
+                                                   authorities);
+  
+  
+  Comme je n'ai plus besoin du password, je le positionne à `""`. 
+  
+  
+#Mise en place coté client
+
+La partie cliente sera en charge:
+
+  1. d'invoquer l'authentification de l'utilisateur en fournissant un login/password et de récupérer le token JWT
+  2. d'inserer le token JWT dans chaque requète HTPP envoyée au serveur.
+
+Quasiment tout se passe dans le service _loginService_:
+  
+    function LoginService($http, $cookieStore, authService, props) {
+
+        this.login = function (email, password) {
+            // REST operation with $http
+            $http({
+                method: 'POST',
+                url: props.URL_REMOTE + '/api/login',
+                data: $.param({email: email, pswrd: password}),
+                ignoreAuthModule: true,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+                .success(function (data, status, headers, config) {
+                    var user = data;
+
+                    var token = headers(props.TOKEN_HEADER_NAME);
+
+                    $http.defaults.headers.common[ props.TOKEN_HEADER_NAME ] = token;
+                    $cookieStore.put(props.TOKEN_HEADER_NAME, token);
+                    authService.loginConfirmed();
+
+                 });
+        };
+    }
+    
+    
+Comme on le voit, la création du token est déclencher par l'appel à l'authentification `api/login`, et on le récupère **dans le header de la reponse**: 
+
+    var token = headers(props.TOKEN_HEADER_NAME);
+         
+ On configure ensuite [$http](https://docs.angularjs.org/api/ng/service/$http) pour que le token soit **ajouté dans le header de chaque requète envoyée**:
+ 
+      $http.defaults.headers.common[ props.TOKEN_HEADER_NAME ] = token;
+      
+Pour pouvoir **récupérer le token aprés un rafraichissement ou une fermeture du navigateur**, on stoke le token dans un cookie (on peut aussi le stocker dans le _localStorage_ du navigateur):
+
+    $cookieStore.put(props.TOKEN_HEADER_NAME, token);
+
+et au démarrage de l'application (_.run()_ d'angular), on vérifie si le token est présent. Si c'est le cas, on configure à nouveau _ http_ pour ajouter le token à chaque requète:
+
+    var app = angular.module('relanes', ['ngRoute', 'ngResource', 'ngCookies'])
+    ....
+    .run(['$rootScope', '$http', '$cookieStore', 'props', function($rootScope, $http, $cookieStore, props){
+        var token = $cookieStore.get(props.TOKEN_HEADER_NAME);
+
+        if (token !== undefined) {
+            $http.defaults.headers.common[props.TOKEN_HEADER_NAME] = token; // ICI, on le récupère dans un cookie
+        }
+        ...
+    }]) 
+    
+**Pour se déloguer**, il suffit de supprimer le token dans la configuration de _$http_ et du stokage (ici, dans un cookie): 
+
+    delete $http.defaults.headers.common[props.TOKEN_HEADER_NAME];
+    $cookieStore.remove(props.TOKEN_HEADER_NAME);
+    
+    
