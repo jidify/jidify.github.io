@@ -15,6 +15,8 @@ JWT (prononcé "jot") est une **authentification stateless** basée sur l'échan
   - pour **identifier** le client (le token est bien celui qui à été remis lors de l'authentification)
  - pour **autoriser** le client (le token contient les droits du client)
 
+
+ _voir et tester ses jwt sur [jwt.io](http://jwt.io/)_
  
 #Mise en place coté serveur
 
