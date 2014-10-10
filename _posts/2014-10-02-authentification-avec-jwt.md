@@ -294,6 +294,7 @@ La partie cliente sera en charge:
 
   1. d'invoquer l'authentification de l'utilisateur en fournissant un login/password et de récupérer le token JWT
   2. d'inserer le token JWT dans chaque requète HTPP envoyée au serveur.
+  3. Gérer les erreurs 401
 
 Quasiment tout se passe dans le service _loginService_:
   
@@ -353,3 +354,71 @@ et au démarrage de l'application (_.run()_ d'angular), on vérifie si le token 
     $cookieStore.remove(props.TOKEN_HEADER_NAME);
     
     
+##Gestion des 401
+Utilisation du module [angular-http-auth](https://github.com/witoldsz/angular-http-auth).  
+
+
+    this.login = function(email, password){
+        // REST operation with $http
+        $http({
+            method: 'POST',
+            url: props.URL_REMOTE + '/api/login',
+            data: $.param({email: email, pswrd: password}),
+            ignoreAuthModule: true,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        })
+        .success(function(data, status, headers, config) {
+           ...
+           authService.loginConfirmed();
+        });
+    };
+
+>ATTENTION  
+Par defaut, le module HTTP rejoue les requètes qui ont échouées pour des raison d'authentification.  
+Pour **ne pas rejouer les requetes de login (en cas d'echec)**, il faut ajouter le parametre `ignoreAuthModule: true`  dans la **configuration de $http envoyant les requètes de login**.
+{: .warning}
+
+
+A noter l'appel de `authService.loginConfirmed()` en cas de succes, qui emettra l'event _auth-loginConfirmed_, attrapé au niveau du $rootScope :
+
+     angular.module(...)
+        .run(function() {
+            ...
+            $rootScope.$on('event:auth-loginConfirmed', function() {
+                loginModal.close();
+                loginModal = null;
+            });
+        });
+
+##Mire de Login sous forme modale 
+
+On utilise les _modal_ du module [Angular-ui-bootstrap](http://angular-ui.github.io/bootstrap/#/modal).  
+<br>
+j'utilise la methode `result()` pour _reseter_ la _modal_ lorsque l'utisateur clique en dehors de la modal :
+
+	loginModal = $modal.open({...});
+	loginModal.result.then( function(){},  //si je ne mets pas cette fonction vide, ça ne marche pas :(
+	        function(reason){
+	           loginModal = null;
+	        }
+	     );
+  
+**ATTENTION :**   
+La notation **"controller as" directement** dans la configuration de la modal **ne fonctionnait pas bien** lors de ce developpement (Version: 0.11.0 - 2014-05-01).
+
+    loginModal = $modal.open({
+       templateUrl: 'static/partials/login.tpl.html'
+       controller: 'LoginController as loginCtrl'
+    });
+
+j'ai du **ajouté le controleur dans le partial** car  avec la notation ci-dessus, je n'arrive pas à invoquer le `$setPristine(true)`!!
+
+    //code JS:
+    loginModal = $modal.open({
+       templateUrl: 'static/partials/login.tpl.html'
+    });
+
+    //dans le partial HTML:
+    <div ng-controller="LoginController as loginCtrl">
+        ...
+    </div>
