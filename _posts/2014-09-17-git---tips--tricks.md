@@ -28,7 +28,7 @@ _Voir fiche [2816715](http://stackoverflow.com/questions/2816715/branch-from-a-p
 
 ###Merger
 
-Aprés que git est signaler qu'il fallait effectuer un merge manuel
+Aprés que git ait signaler qu'il fallait effectuer un merge manuel
 
     git mergetool
     
