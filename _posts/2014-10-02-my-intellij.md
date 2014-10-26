@@ -39,8 +39,8 @@ tags: []
 
 ##Exploration
 
-| Actions            | Raccourcis clavier|
-|:------------------:| :----------------:|
-| Hierachie          | `Ctrl`+ `H`       |
-|              |     |
+| Actions                | Raccourcis clavier|
+|:----------------------:| :----------------:|
+| Hierachie              | `Ctrl`+ `H`       |
+| Type / Classe          | `Cmd`+ `N`        |
 

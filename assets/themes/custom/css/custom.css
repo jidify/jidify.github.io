@@ -10,6 +10,16 @@ blockquote.information {
   padding-left: 48px;
 }
 
+blockquote.warning {
+  border-left: 12px solid #dd9200;
+  background-color: #ffe5ca;
+  padding: 12px 12px 12px 0;
+  margin-left: -20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  padding-left: 48px;
+}
+
 blockquote.attention {
   border-left: 12px solid #880000;
   background-color: #ffbbbb;
@@ -20,13 +30,30 @@ blockquote.attention {
   padding-left: 48px;
 }
 
-blockquote.warning {
-  border-left: 12px solid #dd9200;
-  background-color: #ffe5ca;
+pre.information {
+  border-left: 12px solid #008800;
   padding: 12px 12px 12px 0;
   margin-left: -20px;
-    margin-top: 25px;
-    margin-bottom: 25px;
+  margin-top: -25px;
+  margin-bottom: -25px;
+  padding-left: 48px;
+}
+
+pre.warning {
+  border-left: 12px solid #dd9200;
+  padding: 12px 12px 12px 0;
+  margin-left: -20px;
+  margin-top: -25px;
+  margin-bottom: -25px;
+  padding-left: 48px;
+}
+
+pre.attention {
+  border-left: 12px solid #880000;
+  padding: 12px 12px 12px 0;
+  margin-left: -20px;
+  margin-top: -25px;
+  margin-bottom: -25px;
   padding-left: 48px;
 }
 
