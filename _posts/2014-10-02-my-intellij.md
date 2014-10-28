@@ -11,7 +11,7 @@ tags: []
 
   - [liste pour Mac OS](http://www.jetbrains.com/idea/docs/IntelliJIDEA_ReferenceCard_Mac.pdf)
 
-#Editeur
+##Editeur
 
 | Actions                | Raccourcis clavier    |
 |:----------------------:| :-------------------: |
@@ -19,7 +19,7 @@ tags: []
 
 
 
-#Views
+##Views
 
 | Actions                | Raccourcis clavier                |
 |:-------------------:   | :-------------------------------: |
@@ -32,7 +32,7 @@ tags: []
 |:-------------------:| :-------------------: |
 | Générer la javadoc  | `/**`+ `Enter`        |
 | ajoute import       | `Alt`+ `Enter`        |
-| organise les import | `Ctrl`+ `Alt` + `O`   |
+| organise les import | `Cmd`+ `Alt` + `O`   |
 | import static       | `Alt`+ `Enter`        |
 | **live template**   | `Ctrl`+ `J`           |
 
@@ -44,3 +44,13 @@ tags: []
 | Hierachie              | `Ctrl`+ `H`       |
 | Type / Classe          | `Cmd`+ `N`        |
 
+
+#Plugins
+
+##Lombock
+
+>Activer : _settings --> Annotation Processors --> Enable annotation processing_
+<br>
+<br>
+cocher : _Obtain processors from project classpath_
+{: .warning}
