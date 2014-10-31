@@ -30,11 +30,13 @@ tags: []
 
 | Actions             | Raccourcis clavier    |
 |:-------------------:| :-------------------: |
+| Générer ...         | `Ctrl`+ `N`           |
 | Générer la javadoc  | `/**`+ `Enter`        |
 | ajoute import       | `Alt`+ `Enter`        |
-| organise les import | `Cmd`+ `Alt` + `O`   |
+| organise les import | `Cmd`+ `Alt` + `O`    |
 | import static       | `Alt`+ `Enter`        |
-| **live template**   | `Ctrl`+ `J`           |
+| **live template**   | `Cmd`+ `J`            |
+| Surround ...        | `Cmd`+ `Alt`+ `T`     |
 
 
 ##Exploration
@@ -43,6 +45,7 @@ tags: []
 |:----------------------:| :----------------:|
 | Hierachie              | `Ctrl`+ `H`       |
 | Type / Classe          | `Cmd`+ `N`        |
+| Trouver l'usage        | `Cmd`+ `N`        |
 
 
 #Plugins

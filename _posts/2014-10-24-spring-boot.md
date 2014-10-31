@@ -77,4 +77,48 @@ En affichant le code source d'une classe du package d'autoconfiguration (_**spri
 ![spring auto-configuration-negative-matches-in-IDE](/assets/images/spring/spring-auto-configarution-negative-matches-in-IDE.png)    
 _**@CondionalOnClass**_ **n'est pas vérifiée**, la classe _SecurityAutoConfiguration_ se trouve dans la section _**negative matches**_.
 
+#Profil
+
+### Définir un profil
+
+Il est possible de définir plusieurs configuration de l'application en définissant un fichier `application.properties` **spécifique à un profil**. Il suffit de créer des fichiers `application-{profile}.properties` pour chaque profils.
+
+>l'annotation _**@profil**_ peut être placée au niveau des classes _**@Configuration**_ et _**@Component**_.  
+<br>
+Elle peut également être placée au niveau des methodes annotées avec _**@Bean**_ (dans une classe _@Configuration_).
+{: .information}
+
+**Références:**  
+  - [Springboot - profil & application.properties](http://docs.spring.io/spring-boot/docs/1.1.8.RELEASE/reference/htmlsingle/#boot-features-external-config-profile-specific-properties)
+
+
+### Activer un profil
+
+L'activation d'un (des) profil(s) peut se faire :
+
+  - en commande `-Dspring.profiles.active="profile1,profile2"`
+
+  - avec l'annotation `@ActiveProfiles( profiles = {"profile1,profile2"} )`
+
+ - en configurant les paramètres de la _DispatcherServlet_ de Spring MVC  (in web.xml):
  
+		 <servlet>
+		      <servlet-name>dispatcher</servlet-name>
+		      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		      <init-param>
+		          <param-name>spring.profiles.active</param-name>
+		          <param-value>production</param-value>
+		      </init-param>
+		  </servlet>
+  
+
+
+### Aggréger des profils
+
+un fichier `application-{profile}.properties` peut inclure les propriétés d'autres profil en renseignant la propriété 'spring.profiles.include` :
+
+    spring.profiles.include: dev,dbFile
+   
+    
+>Les propriétés du fichier `application.properties` sont **toujours prise en compte**, quelquesoit le profil activé.  
+Elles peuvent cependant **être modifiées** par les autres **profils inclus**.   
