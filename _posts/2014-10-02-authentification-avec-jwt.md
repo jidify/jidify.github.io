@@ -75,7 +75,7 @@ L'authentification se base sur le login/password fourni par l'utilisateur et uti
 >Attention, le _token_ du type  _UsernamePasswordAuthenticationToken_ fait partie de **l'API de Spring Security** et **n'a rien à voir avec le token JWT** echangé entre le client et le serveur via HTTP !!
 {: .attention}
 
-Toutes les opérations concernant JWT sont déléguées à la classe _**TokenProcessor**_. Donc, pour la création du token JWT, notre  controleur appelle la méthode _createToken__, puis inserre le nouveau token dans le header de la réponse HTTP :
+Toutes les opérations concernant JWT sont déléguées à la classe _**TokenProcessor**_. Donc, pour la création du token JWT, notre  controleur appelle la méthode _createToken_, puis inserre le nouveau token dans le header de la réponse HTTP :
 
     if (authentication != null && authentication.isAuthenticated()) {
           
@@ -145,7 +145,7 @@ C'est la classe qui prend en charge toutes les opérations directes effectuées 
 J'ai utilisé la librairie _**[nimbus-jose-jwt](http://connect2id.com/products/nimbus-jose-jwt)**_ comme implémentation des spécifications **Javascript Object Signing and Encryption (JOSE)** et **JSON Web Token (JWT)** - car elle repondait à mon besoin et était de loin **la mieux documentée**.  
 
 J'ai utiliser le chiffrage **HMAC** qui est symétrique, donc sans clé publique (client et serveur sont sensé posséder la clé privée), **MAIS sans passer la clé privé au client!!**.  
-En effet, Je n'ai pas besoin de fournir sous forme cryptée des informations aux clients. Le chiffrage me permet juste de **valider le token COTE SERVEUR** comme étant bien un token un original (créer par le serveur et non-modifié). 
+En effet, Je n'ai pas besoin de fournir sous forme cryptée des informations aux clients. Le chiffrage me permet juste de **valider le token COTE SERVEUR** comme étant bien un token original (créer par le serveur et non-modifié). 
 
     @Component
     public class TokenProcessor {
@@ -166,7 +166,8 @@ En effet, Je n'ai pas besoin de fournir sous forme cryptée des informations aux
 		...
 	}
 
-Le _TokenProcessor_ est un singleton (_@Component_). La clé privée est générée avec un _SecureRandom_ Java et fait **256 bits (soit 32 bytes)**. Nous utiliserons donc plus tard pour _signer_ et _parser_ un algorithme de hachage SHA-256.   
+Le _TokenProcessor_ est un singleton (_@Component_).  
+La clé privée est générée avec un _SecureRandom_ Java et fait **256 bits (soit 32 bytes)**. Nous l'utiliserons donc plus tard pour _signer_ et _parser_ un algorithme de hachage SHA-256.   
 
 ###Création du token JWT
 
@@ -335,7 +336,7 @@ Pour pouvoir **récupérer le token aprés un rafraichissement ou une fermeture 
 
     $cookieStore.put(props.TOKEN_HEADER_NAME, token);
 
-et au démarrage de l'application (_.run()_ d'angular), on vérifie si le token est présent. Si c'est le cas, on configure à nouveau _ http_ pour ajouter le token à chaque requète:
+et au démarrage de l'application (_.run()_ d'angular), on vérifie si le token est présent. Si c'est le cas, on configure à nouveau _http_ pour ajouter le token à chaque requète:
 
     var app = angular.module('relanes', ['ngRoute', 'ngResource', 'ngCookies'])
     ....
