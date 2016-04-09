@@ -78,6 +78,16 @@ Voici une définition assez simple du *Liskov Substitution Principle* donné par
 
     [-T]
 
+##Régles d’acceptance de variance
+
+Tiré du cours d’Odersky sur coursera, voici les regles d’acceptance : 
+
+  * **Covariant** type parameter can only appear in **method results**.
+  * **Contravariant** type parameter can only appear in **method parameters**.
+  * **Invariant** type parameter can appear **anywhere**
+
+
+
 
 ##Subtype des ...
 
