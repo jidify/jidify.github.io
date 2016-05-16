@@ -33,7 +33,7 @@ tags: []
 | Générer ...         | `Ctrl`+ `N`           |
 | Générer la javadoc  | `/**`+ `Enter`        |
 | ajoute import       | `Alt`+ `Enter`        |
-| organise les import | `Cmd`+ `Alt` + `O`    |
+| organise les import | `Ctrl`+ `Alt` + `O`    |
 | import static       | `Alt`+ `Enter`        |
 | **live template**   | `Cmd`+ `J`            |
 | Surround ...        | `Cmd`+ `Alt`+ `T`     |
