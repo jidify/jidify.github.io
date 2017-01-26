@@ -1,3 +1,12 @@
+---
+layout: post
+title: "vagrant"
+description: ""
+category: 
+tags: [AWS]
+---
+{% include JB/setup %}
+
 #AWS overview
 
 ##Introduction
