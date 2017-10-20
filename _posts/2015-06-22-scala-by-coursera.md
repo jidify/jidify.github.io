@@ -7,7 +7,7 @@ tags: [scala]
 ---
 {% include JB/setup %}
 
-##Polymorphisme
+## Polymorphisme
 2 types de polymorphisme :
 
   * Subtype
@@ -18,7 +18,7 @@ Lorqu’on mixe les 2, expression du genre `MyClass[A] {...}` ou `TODO methode p
   * bounds parameter type
   * variance
 
-##The Liskov Substitution Principle
+## The Liskov Substitution Principle
 
 Voici une définition assez simple du *Liskov Substitution Principle* donné par M.Odersky dans la formation Coursera: 
 
@@ -27,11 +27,11 @@ Voici une définition assez simple du *Liskov Substitution Principle* donné par
 {: .information}
 
 
-##Variance
+## Variance
 
-###Covariance
+### Covariance
 
-####Définition
+#### Définition
 
          _________                     ___________
         |         |                   |           |
@@ -54,9 +54,9 @@ Voici une définition assez simple du *Liskov Substitution Principle* donné par
     [+T]
 
 
-###Contravariance
+### Contravariance
 
-####Définition
+#### Définition
 
          _________                       ___________
         |         |                     |           |
@@ -74,11 +74,11 @@ Voici une définition assez simple du *Liskov Substitution Principle* donné par
        |___________|                   |_____________|
 
 
-####Notation Scala
+#### Notation Scala
 
     [-T]
 
-##Régles d’acceptance de variance
+## Régles d’acceptance de variance
 
 Tiré du cours d’Odersky sur coursera, voici les regles d’acceptance : 
 
@@ -89,7 +89,7 @@ Tiré du cours d’Odersky sur coursera, voici les regles d’acceptance :
 
 
 
-##Subtype des ...
+## Subtype des ...
 
 ### Fonction
 
