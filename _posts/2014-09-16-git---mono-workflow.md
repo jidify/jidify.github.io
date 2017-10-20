@@ -7,12 +7,12 @@ tags: [git, workflow, git-workflow]
 ---
 {% include JB/setup %}
 
-#Objectif
+# Objectif
 Décrire un workflow **simplissime** à utiliser lorsqu'on développe **en solo** sur un petit projet perso.
 
-#Workflow
+# Workflow
 
-###Au début du developpement
+### Au début du developpement
 
 1\. **Récupérer les commits** éventuels qui ne sont pas sur l'ordi sur lequel je m'apprette  à développer
 
@@ -75,6 +75,6 @@ Faire un grand nettoyage permet de s'assurer qu'il ne **traine pas un bout de co
 {: .rubric-4} 
 
 
-#Références
+# Références
   
   * **[GitHub Flow Like a Pro with these 13 Git Aliases](http://haacked.com/archive/2014/07/28/github-flow-aliases/)**

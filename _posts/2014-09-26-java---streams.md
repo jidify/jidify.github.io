@@ -7,7 +7,7 @@ tags: [java 8, stream]
 ---
 {% include JB/setup %}
 
-#Stream : à quoi ça sert
+# Stream : à quoi ça sert
 Les streams sont des wrappers autour de data source (comme les tableaux, les listes, ...).  
 Ils implementent des opérations nouvelles (utilisant les lambdas).  
 Ces nouvelles opérations peuvent s'exécuter **sequentiellement ou en parallelle**. 
@@ -17,7 +17,7 @@ Les streams **créer un pipeline d'opérations** autour d'une structure de donn�
 {: .warning}
 
 
-#Créer un stream
+# Créer un stream
 
 3 manières classiques :
 
@@ -33,7 +33,7 @@ Les streams **créer un pipeline d'opérations** autour d'une structure de donn�
 
 #Créer une structure de données depuis un stream
 
-##Array
+## Array
 
     myStream.toArray(Type[]::new)
     
@@ -41,9 +41,9 @@ Les streams **créer un pipeline d'opérations** autour d'une structure de donn�
     employeeStream.toArray(Employee::new)
     
     
-##Collection
+## Collection
 
-####List
+#### List
 
     myStream.collect(Collectors.toList());
     
@@ -56,7 +56,7 @@ ou, plus généralement, en utilisant l'import static :
     myStream.collect(toList());
     
     
-###Set
+### Set
 
     import java.util.stream.Collectors.*;
 
@@ -65,9 +65,9 @@ ou, plus généralement, en utilisant l'import static :
     myStream.collect(toSet());
     
     
-#Différentes nature des méthodes d'un stream
+# Différentes nature des méthodes d'un stream
 
-##Méthodes finales 
+## Méthodes finales 
 
 Aprés l'invocation d'une méthode terminale, le stream est considéré comme **consommé** et aucune autre opération **ne peut plus être effectuée sur ce stream**.
 
@@ -89,7 +89,7 @@ On trouve ici:
   - iterator
 
 
-##Méthodes intermédiaires
+## Méthodes intermédiaires
 
 Ce sont des méthodes qui **prennent un stream en entrée** et produise **un autre stream en sortie**.  
 Elles ne sont **pas exécutées** tant qu'une **méthode finale n'a pas été invoquée**.
@@ -107,7 +107,7 @@ On trouve ici:
   - sequential
   - unordered
 
-##Méthodes "court-circuit"    
+## Méthodes "court-circuit"    
 
 Ces méthodes **intérromppent tous les traitements** effectués sur un stream dés que **leur traitement à elles est effectué.  
   
@@ -122,9 +122,9 @@ On trouve ici :
   - skip
 
     
-#Méthodes usuelles des streams
+# Méthodes usuelles des streams
 
-##forEach
+## forEach
 
 **"forEach" permet d'exécuter une lambda sur chaque élément d'un stream.**  
 Cette lambda est un "**Consumer**".
@@ -148,7 +148,7 @@ someStream.forEach(element -> doAnotherThing(element));
 car dans la 2eme ligne, someStream "n'existe plus" !!
 {: .warning}        
 
-##map
+## map
 
 **"map" permet de transformer (changement de type) chaque élément d'un stream en leur appliquant une lambda.**  
 Cette lambda est une "**Function**".
@@ -158,7 +158,7 @@ Cette lambda est une "**Function**".
 Le stream d'entrée contient des "Integer".  
 Le stream de sortie contient des "Employee".
 
-##filter
+## filter
 
 **"filter"permet de créer un nouveau stream ne contenant que les élément ayant passer le test désiré, exprimé sous forme de lambda.**   
 Cette lambda est un "**Predicate**".
@@ -166,7 +166,7 @@ Cette lambda est un "**Predicate**".
     employees.filter(e -> e.getSalary() > 500000)
 
 
-##findFirst
+## findFirst
 
 **"findFirst" permet de retourner le premier élément d'un stream, en court-circuitant d'autres opérations appliquées sur le stream.**  
 "findFirst" ne prend pas de paramètre et retourne un **[Optional](http://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)**, car il n'y a pas forcément d'élément correspondant au critère de recherche.  
@@ -189,15 +189,15 @@ En voici les méthodes principales:
   
 
 
-##findAny
+## findAny
 
 TODO
 
-##reduce
+## reduce
 
 Permet de **combiner les éléments d'un stream** en leur appliquant une lambda.
 
-##collect
+## collect
 
 En combinant un stream et une méthode de la classe **[Collectors](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html)**, on peut construire diverses structures de données.
 
@@ -222,26 +222,26 @@ syntactic sugar (sans referencer explicitement "StringJoiner"):
     String result2 = String.join(", ", "Java", "Lisp", "Ruby");  // "Java, Lisp, Ruby"
    
    
-##Opérations limitant la taille d'un stream
+## Opérations limitant la taille d'un stream
 
   - limit
   - substream
 
 
-##Opérations de comparaison des éléments d'un stream
+## Opérations de comparaison des éléments d'un stream
 
  - sorted
  - min, max
  - distinct (supprime les doublon dans un stream)   
 
  
-##Opérations de correspondance des éléments d'un stream
+## Opérations de correspondance des éléments d'un stream
 
   - allMatch : test que tous les élements du stream correspondent à un prédicat.
   - anyMatch : test qu'au moins 1 élement du stream correspondent à un prédicat.
   - noneMatch : test qu'aucuns des élements du stream correspondent à un prédicat.
 
 
-#Ressources
+# Ressources
 
   - [java-8-tutorial](http://coreservlets.com/java-8-tutorial/)

@@ -7,9 +7,9 @@ tags: [Spring, Spring boot]
 ---
 {% include JB/setup %}
 
-#Détection & création des beans
+# Détection & création des beans
 
-##Mécanisme standart
+## Mécanisme standart
 
 ![spring bean factory](/assets/images/spring/spring_bean_factory.png)
 
@@ -34,7 +34,7 @@ Application Context :
 voir complément dans la [documentation Spring](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#context-introduction-ctx-vs-beanfactory).
 {: .information}
 
-##Avec Spring Boot
+## Avec Spring Boot
 En activant le mode debug `-- debug`, on remarque les traces suivantes :
 
 ![spring auto-configuration-positive-matches](/assets/images/spring/spring-auto-configarution-positive-matches.png)
@@ -77,7 +77,7 @@ En affichant le code source d'une classe du package d'autoconfiguration (_**spri
 ![spring auto-configuration-negative-matches-in-IDE](/assets/images/spring/spring-auto-configarution-negative-matches-in-IDE.png)    
 _**@CondionalOnClass**_ **n'est pas vérifiée**, la classe _SecurityAutoConfiguration_ se trouve dans la section _**negative matches**_.
 
-#Profil
+# Profil
 
 ### Définir un profil
 

@@ -7,11 +7,11 @@ tags: []
 ---
 {% include JB/setup %}
 
-#Raccourcis clavier
+# Raccourcis clavier
 
   - [liste pour Mac OS](http://www.jetbrains.com/idea/docs/IntelliJIDEA_ReferenceCard_Mac.pdf)
 
-##Editeur
+## Editeur
 
 | Actions                | Raccourcis clavier    |
 |:----------------------:| :-------------------: |
@@ -19,14 +19,14 @@ tags: []
 
 
 
-##Views
+## Views
 
 | Actions                | Raccourcis clavier                |
 |:-------------------:   | :-------------------------------: |
 | Ouvrir/fermer une vue  | `Cmd`+ `1`, `Cmd`+ `2`, ...       |
 
 
-##Code
+## Code
 
 | Actions             | Raccourcis clavier    |
 |:-------------------:| :-------------------: |
@@ -39,7 +39,7 @@ tags: []
 | Surround ...        | `Cmd`+ `Alt`+ `T`     |
 
 
-##Exploration
+## Exploration
 
 | Actions                | Raccourcis clavier|
 |:----------------------:| :----------------:|
@@ -48,9 +48,9 @@ tags: []
 | Trouver l'usage        | `Cmd`+ `N`        |
 
 
-#Plugins
+# Plugins
 
-##Lombock
+## Lombock
 
 >Activer : _settings --> Annotation Processors --> Enable annotation processing_
 <br>

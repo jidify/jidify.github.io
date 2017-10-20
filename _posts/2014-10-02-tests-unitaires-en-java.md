@@ -7,15 +7,15 @@ tags: [assertJ, tests unitaires, java]
 ---
 {% include JB/setup %}
 
-#Test Unitaire: JUnit
-##cycle de vie d'un test
+# Test Unitaire: JUnit
+## cycle de vie d'un test
 
-###methode statiques => exécutées 1 fois par testsuite
+### methode statiques => exécutées 1 fois par testsuite
 - @BeforeClass
 - @AfterClass
 
 
-###méthode (d'instance) exécuter pour chaque methode annotée "@Test"
+### méthode (d'instance) exécuter pour chaque methode annotée "@Test"
 	 
 - le **constructor** de la classe de test
 	 
@@ -27,7 +27,7 @@ tags: [assertJ, tests unitaires, java]
 ## Test runner: @RunWith
 l'annotation `@RunWith` (class level) permet de changer le "test runner". Cela permet de modifier le cycle de vie de d'une suite de test JUnit.
      
-###Exemples
+### Exemples
 - le test runner de Spring ("SpringJUnit4ClassRunner") supporte des annotations spécifiques et inclus le chargement d'un contexte Spring dans le cycle de vie de la suite de tests.
 
 
@@ -36,7 +36,7 @@ l'annotation `@RunWith` (class level) permet de changer le "test runner". Cela p
 - le test runner parametrisé ("Parameterized") qui permet de fournir plusieurs jeux de données à une suite de tests.
   
 
-##Parametre de l'annotation @Test
+## Parametre de l'annotation @Test
 - `expected` : pour tester les exceptions  
 ATTENTION: tout le test est entre (try ... catch)  
 => préférer l'annotation `@Rule` qui permet de test le message de l'exeption par exemple
@@ -44,7 +44,7 @@ ATTENTION: tout le test est entre (try ... catch)
 - `timout` : en milliseconde : permet de définir un temps max d'execution => à utiliser généralement dans les tests d'intégration.
   
 
-##Convention de nommage des méthodes de test
+## Convention de nommage des méthodes de test
 
     "when_some_condition is met_then_this_happens"
    
@@ -56,15 +56,15 @@ ATTENTION: tout le test est entre (try ... catch)
 Cela permet d'éviter les commentaires ".describedAs("bla bla bla ...")" dans le code des assertions.
 
 
-#Assertions: AssertJ
+#  Assertions: AssertJ
     
 ##But d'une assertion
 Une assertion doit explicité clairement pourquoi le test échoue (sans avoir à utiliser le debugger pour comprendre ce qui se passe !!)
     
 
-#assertJ
+# assertJ
 
-##Pourquoi assertJ
+## Pourquoi assertJ
 
 [AssertJ](http://joel-costigliola.github.io/assertj) permet d'**écrire des assertions** dans les tests unitaires de manière **plus simple et plus intuitive** qu'avec JUnit seul.  
 <br>
@@ -75,33 +75,33 @@ Il existe d'autres librairies comme Hamcrest ou FEST-Assert, mais aujourd'hui as
 
 
 
-#Mock: Eliminer les dépendances avec les Mockito
+# Mock: Eliminer les dépendances avec les Mockito
  
-##Mock vs Stub
+## Mock vs Stub
  - **Mock = Smart Stub**
       - Un mock peut modifier la valeurs de retour en fonction des paramètres reçu
  	  - Un mock peut indiquer le nombre d'appels (ou pas d'appel) à une/des méthode(s)
  		                  
-##Mockito
-##creation de mock
+## Mockito
+## creation de mock
  	          
     this.mockHighScoreService = mock(HighScoreService.class);    // methode 
     
     "mock(clazz)" ou annotation "@Mock" ou "@InjectMock"
 
-##Définition du comportement du mock 
-###when(...).thenReturn(...)    
+## Définition du comportement du mock 
+### when(...).thenReturn(...)    
     
     Mockito.when(mockHighScoreService.getTopFivePlayers())
                 .thenReturn(firstHighScoreList)
                 .thenReturn(secondHighScoreList);
  
-##verification 
+## verification 
  - vérifier que la methode "getTopFivePlayers()" à étée appelée 2 fois.
  
      verify(mockHighScoreService, times(2)).getTopFivePlayers(); 
 
-##les Spy
+## les Spy
        MailService mailService = new MailService();   // l'instance
 		mailService = Mockito.spy(mailService);        // le spy sur cette instance
 		        
@@ -119,12 +119,12 @@ on utilise le pattern suivant `verify(spy_instance, verificationTODO()).spiedMet
 		      
 
 
-#Outils
-##_GenerateTestCase_ pour IntelliJ
+# Outils
+## _GenerateTestCase_ pour IntelliJ
 
 _GenerateTestCase_ est un plugin qui permet de générer des tests unitaires à partir de l'annotation _**@should**_ ajoutée dans la javadoc.
 
-**ATTENTION:**  
+** ATTENTION:**  
 Il faut upgrader la version de la JVM qui fait tourner Intellij (1.6 par defaut dans la versions 13.1), sinon on a l'exception _ java.lang.UnsupportedClassVersionError_:  
 
 	Plugin 'GenerateTestCases' failed to initialize and will be disabled.  Please restart IntelliJ IDEA.

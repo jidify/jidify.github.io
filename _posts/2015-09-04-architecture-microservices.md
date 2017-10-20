@@ -8,5 +8,5 @@ tags: []
 {% include JB/setup %}
 
 
-##References
+## References
    *  **[de JEE monolithe à microservices](https://dzone.com/articles/monolithic-to-microservices-refactoring-for-java-e?oid=top_cta)**

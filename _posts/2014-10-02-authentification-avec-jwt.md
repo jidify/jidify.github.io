@@ -8,17 +8,17 @@ tags: [jwt, json web token, angularJS, spring security]
 {% include JB/setup %}
 
 
-#Json Web Token
+# Json Web Token
 
 JWT (prononcé "jot") est une **authentification stateless** basée sur l'échange d'un token entre le client et le serveur. Le token contient les informations suffisantes : 
 
   - pour **identifier** le client (le token est bien celui qui à été remis lors de l'authentification)
- - pour **autoriser** le client (le token contient les droits du client)
+  - pour **autoriser** le client (le token contient les droits du client)
 
 
  _voir et tester ses jwt sur [jwt.io](http://jwt.io/)_
  
-#Mise en place coté serveur
+# Mise en place coté serveur
 
 L'authentification/autorisation est mise en place avec **spring security**.
 
@@ -26,10 +26,10 @@ L'authentification/autorisation est mise en place avec **spring security**.
 
 !["Entrypoints"](/assets/images/jwt/jwt_entrypoints.png)
 
-##AuthenticationController
+## AuthenticationController
 L'_**AuthenticationController**_ à la charge de **créer le token** àprés avoir authentifié l'utilisateur.  
 
-###Invocation
+### Invocation
 Ce controller est invoqué **explicitement** depuis le client **par une URL** :
 
     @RestController
@@ -54,7 +54,7 @@ Ce controller est invoqué **explicitement** depuis le client **par une URL** :
 ici, l'URL sera du type `https://[host]:[port]/context/api/login`
    
    
-###Implémentation
+### Implémentation
 
  L'_**AuthenticationController**_  doit :
  
@@ -92,7 +92,7 @@ Toutes les opérations concernant JWT sont déléguées à la classe _**TokenPro
 
 
   
-##XAuthTokenFilter
+## XAuthTokenFilter
 
 _**XAuthTokenFilter**_ à la charge de vérifier le token et de renseigner le contexte de securité de Spring Security.  
 On utilise un _filtre_ car on est dans le cas d'un traitement transverse, qui doit intervenir pour toutes les requètes HTTP.
@@ -138,7 +138,7 @@ ce qui place notre filtre tel **qu'on passe toujours par lui en premier lieu** :
 Si il n'y a **pas de token, le filtre ne fait rien**, et la requète suit son cours normale.
 
 
-##TokenProcessor
+## TokenProcessor
 
 C'est la classe qui prend en charge toutes les opérations directes effectuées sur le token JWT (creation, configuration, extraction, verification).  
 
@@ -169,7 +169,7 @@ En effet, Je n'ai pas besoin de fournir sous forme cryptée des informations aux
 Le _TokenProcessor_ est un singleton (_@Component_).  
 La clé privée est générée avec un _SecureRandom_ Java et fait **256 bits (soit 32 bytes)**. Nous l'utiliserons donc plus tard pour _signer_ et _parser_ un algorithme de hachage SHA-256.   
 
-###Création du token JWT
+### Création du token JWT
 
 La création se fera à partir d'un _**[org.springframework.security.core.userdetails](http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/core/userdetails/package-summary.html)**_ qui est typiquement la classe récupérer par spring security aprés une authentification via **DAO + Base de données**.  
 En sortie, nous aurons un token JWT contenant :
@@ -227,7 +227,7 @@ On retrouve notre algorithme de hachage SHA-256 `JWSAlgorithm.HS256`.
 
 
 
-###Récupération des informations client depuis le token JWT
+### Récupération des informations client depuis le token JWT
 
 La récupération des informations client depuis le token JWT consiste à :
 
@@ -289,7 +289,7 @@ La méthodes `buildSecurityContextTokenFromJWT(...)` récupére les données dan
   Comme je n'ai plus besoin du password, je le positionne à `""`. 
   
   
-#Mise en place coté client
+# Mise en place coté client
 
 La partie cliente sera en charge:
 
@@ -355,7 +355,7 @@ et au démarrage de l'application (_.run()_ d'angular), on vérifie si le token 
     $cookieStore.remove(props.TOKEN_HEADER_NAME);
     
     
-##Gestion des 401
+## Gestion des 401
 Utilisation du module [angular-http-auth](https://github.com/witoldsz/angular-http-auth).  
 
 
@@ -391,7 +391,7 @@ A noter l'appel de `authService.loginConfirmed()` en cas de succes, qui emettra 
             });
         });
 
-##Mire de Login sous forme modale 
+## Mire de Login sous forme modale 
 
 On utilise les _modal_ du module [Angular-ui-bootstrap](http://angular-ui.github.io/bootstrap/#/modal).  
 <br>

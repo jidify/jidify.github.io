@@ -8,9 +8,9 @@ tags: []
 {% include JB/setup %}
 
 
-#@OneToMany
+# @OneToMany
 
-##unidirectionnel
+## unidirectionnel
 
 ![JPA-oneToMany-unidirectional](/assets/images/jee/jpa/JPA-oneToMany-unidirectional.png)
 
@@ -52,7 +52,7 @@ Hummm ... :mag_right:
 
 ### 2eme mapping : cascading
 
-####Génial, ça marche !!!
+#### Génial, ça marche !!!
 	
 	...
 	@OneToMany(cascade = CascadeType.ALL)
@@ -60,7 +60,7 @@ Hummm ... :mag_right:
 
 :smiley: Génial, ça marche !!!
 
-###Regardons de plus prés
+### Regardons de plus prés
 
 Voyons voir le détail dans les logs
 
@@ -90,7 +90,7 @@ alors qu'il me semble qu'avec 2 tables, ça serait largement suffisant :
 	
 ### 3eme mapping : joinColumn
 
-####Génial, ça marche !!!
+#### Génial, ça marche !!!
     ...
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "GAME_ID")
@@ -150,7 +150,7 @@ De plus, lors de mes recherches je tombe sur **cette mise en garde dans la docum
   - [Hibernate unidirectional one to many association - why is a join table better?](http://stackoverflow.com/questions/1307203/hibernate-unidirectional-one-to-many-association-why-is-a-join-table-better?lq=1)
   - [Documentation Hibernate (2.2.5.3.1.2. Unidirectional)](http://docs.jboss.org/hibernate/stable/annotations/reference/en/html_single/#entity-mapping-association-collections)
 
-###OneToMany unidirectionnel : une mauvaise idée ?
+### OneToMany unidirectionnel : une mauvaise idée ?
 
 Comme j'ai toujours entendu dire que les associations bi-directionnelles étaient rarement une bonne idée, je suis étonné qu'il n'y ai pas de solution (comme une petite annotation propriétatire d'Hibernate) qui me permette d'avoir ce gain en performance (**2**  `insert` - point barre)!
 
@@ -181,7 +181,7 @@ En effet, en mémoire, il y a :
 :angry: **J'ai l'inverse de ce que je voulais !!** Il y a 2 _Game_ pointant vers la même _Question_, soit une association _**@ManyToMany**_ au lieu d'une association _**@OneToMany**_.  
 Mais en base il y a bien une _**@OneTo...**_ (Hibernate à veillé au grain en faisant 2 `update` correspondant aux 2 associations).  
 
->**MORALITE** :  
+>** MORALITE** :  
 <br>
 Le seul moyen de **garantir la cohésion** entre la **base de données** et la **représentation en mémoire** des associations _**@OneToMany**_ ... c'est d'avoir **une relation bi-directionnelle** (de type parent/child).   
 <br>  

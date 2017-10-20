@@ -7,12 +7,12 @@ tags: [java 8, lambda]
 ---
 {% include JB/setup %}
 
-#Pourquoi les lambdas en Java
+# Pourquoi les lambdas en Java
   1. Ecriture plus concise, donc plus efficace
   2. Orienté programmation fonctionnelle
   3. Nécessaire aux "streams"
 
-#Qu'est-ce qu'une lambda
+# Qu'est-ce qu'une lambda
 
 Une lambda **ressemble à une fonction** mais est en fait **une instance d'une inner class** qui implémente une **interface contenant une seule méthode abstraite**. 
 
@@ -33,10 +33,10 @@ devient avec la syntaxe des lambda (java 8):
 
     (String arg1, String arg2) -> { body }
     
-#Syntaxe simplifiée    
+# Syntaxe simplifiée    
     
     
-##Inference de type
+## Inference de type
 
 Dans l'exemple ci-dessus :
 
@@ -48,7 +48,7 @@ La syntaxe devient:
 
      (arg1, arg2) -> { body }
 
-##Valeur de retour implicite
+## Valeur de retour implicite
 Dans les lambdas vu ci-dessus, `{ body }` peut retourner une valeur. 
    
 Par exemple, on aurait en Java 7 :
@@ -66,7 +66,7 @@ Avec les lambdas, on est **pas obligé de préciser le « return »** et on pe
     (arg1, arg2) -> someValue
 
 
-##Suppression des paranthèses
+## Suppression des paranthèses
 Si la methode de l'interface fonctionnelle ecrite avec une lambda ne comporte qu'**un argument**, on peut **omettre les paranthèses** :
     
      (arg) -> someValue
@@ -76,7 +76,7 @@ devient:
     arg -> someValue
     
  
-#Accés aux variables locales
+# Accés aux variables locales
 Une lambda peut acceder aux variables locales qui sont :
   - **final**
   - **"effectively final"** : c.a.d qui ne sont pas écrite avec 'final' devant mais qui ne sont pas modifiées dans les faîts :
@@ -153,7 +153,7 @@ L'interface Predicate contient également **3 methodes concrêtes**:
    - isEqual
  
  
-##Function & BiFunction
+## Function & BiFunction
 
 ###Function
 Une fonction prend **un type en argument** et renvoie en **valeur de retour  un autre type**.  
@@ -171,11 +171,11 @@ L'interface Function contient également **2 methodes concrêtes**:
    - identity
     
 
-###BiFunction
-Rien compris !!!
+### BiFunction
+TODO
 
 
-##Consumer
+## Consumer
 Un consumer va effectuer des changements, va intervenir sur l'élément qui lui est fourni.  
 La méthode abstraite **accept(...)** définie dans l'interface ressemblera à :
 
@@ -187,14 +187,14 @@ L'interface Consumer contient également **1 methodes concrêtes**:
    - chain
     
     
-##Supplier
+## Supplier
 Un consumer va produire, créer un nouvelle instance.  
 La méthode abstraite **get()** définie dans l'interface ressemblera à :
 
     T get();   
     
     
-##BinaryOperator
+## BinaryOperator
 Un BinaryOperator va produire une instance de type T à partir de 2 arguments (instances) de type T.
 La méthode abstraite **apply(...)** définie dans l'interface ressemblera à :
 
@@ -209,6 +209,6 @@ La méthode abstraite **apply(...)** définie dans l'interface ressemblera à :
 {: .information}
     
     
-#Ressources
+# Ressources
 
   - [java-8-tutorial](http://coreservlets.com/java-8-tutorial/)

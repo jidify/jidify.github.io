@@ -7,14 +7,14 @@ tags: [git, configuration, git-configuration]
 ---
 {% include JB/setup %}
 
-#Objectifs 
+# Objectifs 
 Décrire comment la configuration de Git est organisée et quelles sont les information minimales à renseignées.
 
 ---
 
-#Configuration de Git
+# Configuration de Git
 
-##3 niveaux de configuration
+## 3 niveaux de configuration
 <br>
 
 | **system**  | Ces valeurs sont **communes à tous les utilisateurs** de l'ordinateur. |
@@ -29,10 +29,10 @@ __l'ordre de prise en compte est :__
 2. global
 3. system 
 
-##Sauvegarde de la configuration
+## Sauvegarde de la configuration
 Git sauvegarde les valeurs de configuration dans **des fichiers**.
 
-###Système
+### Système
 Syntaxe: `git config --system <property_name> <property_value>`
 
 Ces valeurs sont sauvegardées sous:
@@ -40,7 +40,7 @@ Ces valeurs sont sauvegardées sous:
   * `/etc/gitconfig` (mac)
   * `todo` (windows)
 
-###Globale
+### Globale
 Syntaxe: `git config --global <property_name> <property_value>`
 
 Ces valeurs sont sauvegardées sous:
@@ -48,7 +48,7 @@ Ces valeurs sont sauvegardées sous:
   * `~/.gitconfig` (mac)
   * `todo` (windows)
 
-###Locale
+### Locale
 Syntaxe: `git config --local <property_name> <property_value>`
 
 Ces valeurs sont sauvegardées sous:
@@ -62,7 +62,7 @@ On peut sauvegarder "toto", **Git ne hurlera pas**, il ne dira rien.
 En cas de **typo(s)**, Git **ignorera silencieusement** la propriété et **rien ne se passera !!**
 {: .attention}
 
-#Section et sous-sections
+# Section et sous-sections
 Les valeurs sont stockées sous forme de **clé-valeur**.   
 
 Il est possible d'organiser les propriétés en **sous-sections** en les **imbriquant avec le séparateur "."**: 
@@ -71,7 +71,7 @@ ce qui donne dans le fichier :
 !["git config subsection result"](/assets/images/git/git_config_subsection_result.png)  
 où **"something"** est la sous-section de **[fake]**
 
-#Ma configuration
+# Ma configuration
  
 **informations sur l'auteur**
 
@@ -116,6 +116,6 @@ _Voir stackoverflow **[9776434](http://stackoverflow.com/questions/9776434/git-m
 >Certaines de ces customisations peuvent être faites via le fichier **.gitattributes**
 {: .information}
 
-#Mes fichiers de configuration 
+# Mes fichiers de configuration 
 
   * [gitconfig.txt](/assets/files/git/gitconfig.txt) (à renommer en '.gitconfig').

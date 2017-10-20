@@ -9,20 +9,20 @@ tags: [CDI]
 
 JSR 299
 
-#L’injection de dépendance
+# L’injection de dépendance
 
-##Qu’est ce que c’est
+## Qu’est ce que c’est
 C’est le principe de programmation qui fait qu’une instance de classe qui utilise une instance d’une autre classe **n’est pas responsable de la création** de cette dernière.  
 Cette création est déportée dans une factory ou un conteneur d’injection de dépendances (comme Spring par exemple).
 
-##Pourquoi faire
+## Pourquoi faire
 
   - L’injection de dépendances rend les **test unitaires beaucoup plus faciles** permettant de remplacer les dépendances par des mocks.
 
   - L’injection de dépendances **favorise un couplage lache** en séparant l’utilisation d’une dépendance de sa construction.
 
   
-#JSR 299
+# JSR 299
 
 CDI correspond à la JSR 299 qui permet :
 
@@ -53,7 +53,7 @@ JEE 6 propose une définition d’un bean comme :
      - l’injection de resource(@Resource)
      - les intercepteurs (@Interceptors, @AroundInvoke)
 
-##Différence entre les beans EJB, CDI, REST ...
+## Différence entre les beans EJB, CDI, REST ...
 
 TOus sont des beans JEE 6 (ils ont les propriétés décrites ci-dessus). Mais ils aussi des particularités qui les différencient les uns des autres :
 
@@ -62,7 +62,7 @@ TOus sont des beans JEE 6 (ils ont les propriétés décrites ci-dessus). Mais i
   - un bean CDI supporte un ensemble de service propre à CDI. 
 
 
-#Decouverte automatique des beans CDI
+# Decouverte automatique des beans CDI
 
 Pour que des pojos puissent être perçu par le conteneur comme des beans CDI, il faut que l’archive les contenant possède un fichier _**beans.xml**_ dans:
   
@@ -72,14 +72,14 @@ Pour que des pojos puissent être perçu par le conteneur comme des beans CDI, i
 >_**beans.xml**_ ne sert pas à déclarer les beans comme dans Spring.  **Il peut être vide**, l’archive sera quand même scannée pour découvrir les beans.
 {: .attention}
 
-#Injection
+# Injection
 
 L’injection à lieu dans un « point d’injection », qui peut être :
 
   - un champ
   - une méthode
 
-##Injection dans un champ
+## Injection dans un champ
     
     @Inject <Java-Type> <variable-name>
     
@@ -93,9 +93,9 @@ exemple:
     }
     
 
-##Injection dans une méthode
+## Injection dans une méthode
 
-###Constructeur
+### Constructeur
 Permet notament de construre des objets **immutables**.
 
     class Account {
@@ -111,16 +111,16 @@ Permet notament de construre des objets **immutables**.
         ...
     }
 
-###Initializer
+### Initializer
 
-###Setter
+### Setter
 
-###Producer
+### Producer
 
-###Observer
+### Observer
 
 
-#Qualifier
+# Qualifier
 
 Pour un type de bean à injecter, il peut y avoir plusieurs implémentations correspondant à ce type. Un -**qualifier**_ est une annotation qui permet de définir le type de l’implémentation à injecter que le conteneur doit choisir.
 

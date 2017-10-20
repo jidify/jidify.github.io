@@ -7,9 +7,9 @@ tags: [java, javascript, environement developpement]
 ---
 {% include JB/setup %}
 
-#JavaScript
+# JavaScript
 
-##Pré-requis  
+## Pré-requis  
 Si elles ne sont pas déjà présentent, installer **en globale** les applications suivantes:  
 
   - node.js   : utiliser l'installeur du [site de Node.js](http://nodejs.org/)
@@ -18,29 +18,29 @@ Si elles ne sont pas déjà présentent, installer **en globale** les applicatio
 
   - bower : `npm install -g bower`
 
-##Grunt
+## Grunt
 
 >Toutes les installations suivantes sont **locales**.
 {: .information}
 
-###Grunt 'itself'
+### Grunt 'itself'
 
     npm install grunt --save-dev
 
 
-###concatenation & copy
+### concatenation & copy
 
     npm install grunt-contrib-concat --save-dev
     npm install grunt-contrib-copy --save-dev
 
 
-###clean
+### clean
     
     npm install grunt-contrib-clean --save-dev
 
-###Server & proxy
+### Server & proxy
 
-####server
+#### server
 
     npm install grunt-contrib-connect --save-dev
 
@@ -48,7 +48,7 @@ Si elles ne sont pas déjà présentent, installer **en globale** les applicatio
 _[https://github.com/gruntjs/grunt-contrib-watch/issues/111](https://github.com/gruntjs/grunt-contrib-watch/issues/111)_
 {: .attention}
 
-###proxy
+### proxy
 le proxy permet de résoudre les problèmes de _**Same-origin policy**_.
 
     npm install grunt-connect-proxy --save-dev
@@ -61,14 +61,14 @@ Du coup, mise en place d'un filtre **CORS** coté serveur java.
 {: .attention}
 
 
-###TU
+### TU
 
     npm install grunt-karma --save-dev
     npm install karma-jasmine@2_0 --save-dev  // jasmine 2
     karma init karma.conf.js
 
 
-###watch
+### watch
 
     npm install grunt-contrib-watch --save-dev
 
@@ -81,7 +81,7 @@ MAIS, maintenant, **livereload est embarqué dans 'grunt-contrib-watch'** !!
 {: .warning}
 
 
-###Exemple de fichier Gruntfile.js
+### Exemple de fichier Gruntfile.js
   
 [Gruntfile.js](/assets/files/env_dev/Gruntfile.js)
 
@@ -90,9 +90,9 @@ avec ce fichier, il faut lancer **karma + [task_name]**, par exemple :
     grunt karma:unit:start dev
     
     
-##Bower
+## Bower
 
-###configuration
+### configuration
 
 Définir l'emplacement des dépendances dans le fichier _.boxerrc_
 
@@ -101,7 +101,7 @@ Définir l'emplacement des dépendances dans le fichier _.boxerrc_
     }
 
 
-###Dépendances    
+### Dépendances    
     
 Récupérer les dépendances suivantes :
 
